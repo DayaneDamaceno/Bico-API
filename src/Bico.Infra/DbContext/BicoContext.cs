@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bico.Domain.Entities;
+using Bico.Infra.Mapping;
+using Microsoft.EntityFrameworkCore;
 
-namespace Bico.Infra.DbContext
+namespace Bico.Infra.DBContext;
+
+public partial class BicoContext : DbContext
 {
-    internal class BicoContext
+    public BicoContext() { }
+
+    public BicoContext(DbContextOptions<BicoContext> options) : base(options) { }
+
+    public virtual DbSet<Categoria> Categorias { get; set; } = null!;
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("dev");
+        CategoriaMapping.Configure(modelBuilder);
+
+
+        OnModelCreatingPartial(modelBuilder);
     }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }
+
