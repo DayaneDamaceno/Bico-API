@@ -1,12 +1,13 @@
+using Asp.Versioning;
 using Bico.Api.v1.Models;
 using Bico.Domain.Interfaces;
-using Bico.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bico.Api.v1.Controllers;
 
+[ApiVersion(1.0)]
 [ApiController]
-[Route("[controller]")]
+[Route("v{version:apiVersion}/categorias")]
 public class CategoriaController : ControllerBase
 {
     private readonly ICategoriaRepository _categoriaRepository;
@@ -16,7 +17,7 @@ public class CategoriaController : ControllerBase
         _categoriaRepository = categoriaRepository;
     }
 
-    [HttpGet(Name = "")]
+    [HttpGet]
     public async Task<ActionResult> Get()
     {
         var categorias = await _categoriaRepository.ObterCategorias();
@@ -24,8 +25,8 @@ public class CategoriaController : ControllerBase
         return Ok(categorias);
     }
 
-    [HttpPost(Name = "")]
-    public ActionResult CriarCategoria(Categoria categoria)
+    [HttpPost]
+    public ActionResult CriarCategoria(CategoriaDto categoria)
     {
 
         return Ok(categoria);
