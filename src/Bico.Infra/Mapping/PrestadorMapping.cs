@@ -52,7 +52,7 @@ internal static class PrestadorMapping
                                  .HasForeignKey("prestador_id"),
                             j =>
                             {
-                                j.ToTable("prestadores_habilidades", "dev"); 
+                                j.ToTable("prestadores_habilidades"); 
                                 j.HasKey("prestador_id", "habilidade_id");
                             });
                 });

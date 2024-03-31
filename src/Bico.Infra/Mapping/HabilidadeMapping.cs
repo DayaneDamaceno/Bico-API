@@ -31,10 +31,7 @@ internal static class HabilidadeMapping
                    .WithMany()
                    .HasForeignKey(h => h.CategoriaId);
 
-            //entity
-            //    .HasMany(h => h.Prestadores)
-            //    .WithMany(p => p.Habilidades)
-            //    .UsingEntity(j => j.ToTable("prestadores_habilidades").HasKey("prestador_id", "habilidade_id"));
+           
         });
     }
 }

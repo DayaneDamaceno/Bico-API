@@ -19,7 +19,10 @@ public partial class BicoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("dev");
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
+        modelBuilder.HasDefaultSchema(environmentName.ToLower());
+
         PostGeoExtensions.AddStDWithin(modelBuilder);
         PostGeoExtensions.AddStDistance(modelBuilder);
 
