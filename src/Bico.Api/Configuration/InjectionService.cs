@@ -11,7 +11,6 @@ public static class InjectionService
 {
     public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
-        NpgsqlConnection.GlobalTypeMapper.UseNetTopologySuite();
         //Services
         services.AddScoped<IPrestadorService, PrestadorService>();
 
@@ -24,7 +23,7 @@ public static class InjectionService
 
     public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString("Default"));
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration["DBStringConnection"]);
         dataSourceBuilder.UseNetTopologySuite();
         var dataSource = dataSourceBuilder.Build();
 

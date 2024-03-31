@@ -1,6 +1,14 @@
+using Azure.Identity;
 using Bico.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = builder.Configuration["AzureKeyVault:Endpoint"];
+
+if (!string.IsNullOrEmpty(keyVaultEndpoint))
+{
+    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultEndpoint), new DefaultAzureCredential());
+}
 
 builder.Services.AddControllers();
 
