@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddDbContext(builder.Configuration)
+    .AddBlobClient(builder.Configuration)
     .RegisterServices(builder.Configuration);
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

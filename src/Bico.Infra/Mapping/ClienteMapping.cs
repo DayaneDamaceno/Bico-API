@@ -24,8 +24,8 @@ internal static class ClienteMapping
                 .HasMaxLength(255);
 
             entity
-                .Property(p => p.AvatarUrl)
-                .HasColumnName("avatar_url")
+                .Property(p => p.AvatarFileName)
+                .HasColumnName("avatar_filename")
                 .IsRequired()
                 .HasMaxLength(255);
 

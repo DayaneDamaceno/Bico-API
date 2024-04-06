@@ -10,21 +10,23 @@ namespace Bico.Api.v1.Controllers;
 [Route("v{version:apiVersion}/clientes")]
 public class ClienteController : ControllerBase
 {
-    private readonly IPrestadorRepository _prestadorRepository;
+    private readonly IPrestadorService _prestadorService;
 
-    public ClienteController(IPrestadorRepository prestadorRepository)
+    public ClienteController(IPrestadorService prestadorService)
     {
-        _prestadorRepository = prestadorRepository;
+        _prestadorService = prestadorService;
     }
 
     [HttpGet("{clienteId}/prestadores/proximos")]
     public async Task<ActionResult> ObterPrestadoresMaisProximos(int clienteId, [FromQuery]int habilidade)
     {
-        var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clienteId, habilidade);
+        var prestadores = await _prestadorService.ObterPrestadoresMaisProximosAsync(clienteId, habilidade);
         var prestadoresDto = prestadores.Select(p => new PrestadorDto(p)).ToList();
 
         return Ok(prestadoresDto);
     }
+
+    
 
 
 }
