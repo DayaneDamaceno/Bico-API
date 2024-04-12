@@ -1,7 +1,9 @@
 using Bico.Api.v1.Models;
+using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
 using Bico.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Bico.Api.v1.Controllers;
 
@@ -16,21 +18,27 @@ public class CategoriaController : ControllerBase
         _categoriaRepository = categoriaRepository;
     }
 
-    [HttpGet(Name = "")]
+    [HttpGet("")]
     public async Task<ActionResult> Get()
     {
         var categorias = await _categoriaRepository.ObterCategorias();
 
         return Ok(categorias);
     }
-
-    [HttpPost(Name = "")]
-    public ActionResult CriarCategoria(Categoria categoria)
+  
+    [HttpGet("Buscar/{texto}")]
+    public async Task<ActionResult> GetBuscaCategoria(string texto)
     {
+        var categorias = await _categoriaRepository.ObterCategoriasBusca(texto);
 
-        return Ok(categoria);
+        return Ok(categorias);
     }
 
+    /*[HttpPost("")]
+    public ActionResult CriarCategoria(Categoria categoria)
+    {
+        return Ok(categoria);
+    }*/
 }
 
 
