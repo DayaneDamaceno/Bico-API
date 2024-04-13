@@ -19,7 +19,7 @@ public class Prestador
     public string AvatarUrl { get; set; }
 
     [NotMapped]
-    public double? MediaEstrelas { get; set; }
+    public double MediaEstrelas { get; set; }
 }
 
 

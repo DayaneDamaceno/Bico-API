@@ -15,6 +15,6 @@ public class PrestadorDto
         Id = prestador.Id;
         Nome = prestador.Nome;
         AvatarUrl = prestador.AvatarUrl;
-        MediaEstrelas = prestador.MediaEstrelas ?? 0.0;
+        MediaEstrelas = prestador.MediaEstrelas;
     }
 }

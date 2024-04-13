@@ -33,7 +33,7 @@ public class PrestadorRepository : IPrestadorRepository
                 Nome = p.Nome,
                 AvatarFileName = p.AvatarFileName,
                 Avaliacoes = p.Avaliacoes,
-                MediaEstrelas = p.Avaliacoes.Any() ? p.Avaliacoes.Average(a => (double?)a.QuantidadeEstrelas) : null
+                MediaEstrelas = p.Avaliacoes.Any() ? p.Avaliacoes.Average(a => (double)a.QuantidadeEstrelas) : 0
             })
             .Skip(paginacao.ObterSkip())
             .Take(paginacao.QuantidadeDeItens)
