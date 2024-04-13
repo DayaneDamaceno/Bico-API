@@ -18,9 +18,9 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet("{clienteId}/prestadores/proximos")]
-    public async Task<ActionResult> ObterPrestadoresMaisProximos(int clienteId, [FromQuery]int habilidade)
+    public async Task<ActionResult> ObterPrestadoresMaisProximos(int clienteId, [FromQuery] int habilidade, [FromQuery] int pagina)
     {
-        var prestadores = await _prestadorService.ObterPrestadoresMaisProximosAsync(clienteId, habilidade);
+        var prestadores = await _prestadorService.ObterPrestadoresMaisProximosAsync(clienteId, habilidade, pagina);
         var prestadoresDto = prestadores.Select(p => new PrestadorDto(p)).ToList();
 
         return Ok(prestadoresDto);

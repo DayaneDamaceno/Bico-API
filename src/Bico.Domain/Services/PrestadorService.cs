@@ -1,5 +1,6 @@
 ﻿using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
+using Bico.Domain.ValueObjects;
 
 namespace Bico.Domain.Services;
 
@@ -14,9 +15,10 @@ public class PrestadorService : IPrestadorService
         _avatarRepository = avatarRepository;
     }
 
-    public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId)
+    public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina)
     {
-        var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId);
+        var paginacao = new Paginacao(pagina);
+        var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId, paginacao);
 
         prestadores.ForEach(prestador =>
         {
