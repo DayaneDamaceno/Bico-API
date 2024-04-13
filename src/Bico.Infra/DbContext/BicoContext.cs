@@ -15,6 +15,7 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Habilidade> Habilidades { get; set; } = null!;
     public virtual DbSet<Prestador> Prestadores { get; set; } = null!;
     public virtual DbSet<Cliente> Clientes { get; set; } = null!;
+    public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +32,7 @@ public partial class BicoContext : DbContext
         HabilidadeMapping.Configure(modelBuilder);
         PrestadorMapping.Configure(modelBuilder);
         ClienteMapping.Configure(modelBuilder);
+        AvaliacaoMapping.Configure(modelBuilder);
 
         OnModelCreatingPartial(modelBuilder);
     }

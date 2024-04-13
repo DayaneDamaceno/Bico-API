@@ -27,6 +27,14 @@ public class PrestadorRepository : IPrestadorRepository
             .Where(p => p.Habilidades.Any(h => h.Id == habilidadeId))
             .Where(p => p.Localizacao.StDWithin(localizacaoDoCliente, p.RaioDeAlcance, true))
             .OrderBy(p => p.Localizacao.StDistance(localizacaoDoCliente, true))
+            .Select(p => new Prestador
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                AvatarFileName = p.AvatarFileName,
+                Avaliacoes = p.Avaliacoes,
+                MediaEstrelas = p.Avaliacoes.Any() ? p.Avaliacoes.Average(a => (double?)a.QuantidadeEstrelas) : null
+            })
             .Skip(paginacao.ObterSkip())
             .Take(paginacao.QuantidadeDeItens)
             .ToList();      

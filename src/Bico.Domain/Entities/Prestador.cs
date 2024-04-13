@@ -13,9 +13,13 @@ public class Prestador
     public Point Localizacao { get; set; }
 
     public virtual ICollection<Habilidade> Habilidades { get; set; }
+    public virtual ICollection<Avaliacao> Avaliacoes { get; set; }
 
     [NotMapped]
     public string AvatarUrl { get; set; }
+
+    [NotMapped]
+    public double? MediaEstrelas { get; set; }
 }
 
 
