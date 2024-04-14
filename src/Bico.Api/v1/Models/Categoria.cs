@@ -7,5 +7,5 @@ public class Categoria
         Nome = nome;
     }
 
-    public string Nome { get; set; }
+    public string Nome { get; set; } 
 }
