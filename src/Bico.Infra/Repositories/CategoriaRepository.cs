@@ -23,4 +23,9 @@ public class CategoriaRepository : ICategoriaRepository
 
         return categorias;
     }
+
+    public async Task<List<Categoria>> ObterCategoriasBusca(string textoPesquisa)
+    {
+        return await _context.Categorias.Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
+    }
 }

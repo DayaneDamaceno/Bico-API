@@ -1,7 +1,5 @@
-﻿using Asp.Versioning;
-using Bico.Api.v1.Models;
+using Asp.Versioning;
 using Bico.Domain.Interfaces;
-using Bico.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bico.Api.v1.Controllers;
@@ -18,10 +16,18 @@ public class HabilidadeController : ControllerBase
         _habilidadeRepository = habilidadeRepository;
     }
 
-    [HttpGet("{categoriaId}")]
+    [HttpGet("categoria/{categoriaId}")]
     public async Task<ActionResult> Get(int categoriaId)
     {
         var habilidades = await _habilidadeRepository.ListarHabilidades(categoriaId);
+
+        return Ok(habilidades);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult> GetBuscaHabilidade([FromQuery]string texto)
+    {
+        var habilidades = await _habilidadeRepository.ObterHabilidadesBusca(texto);
 
         return Ok(habilidades);
     }

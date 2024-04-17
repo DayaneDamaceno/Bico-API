@@ -18,6 +18,7 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
 
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";

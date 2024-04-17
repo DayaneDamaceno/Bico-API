@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Bico.Api.v1.Models;
+using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
