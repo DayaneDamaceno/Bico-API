@@ -16,10 +16,10 @@ public class HabilidadeController : ControllerBase
         _habilidadeRepository = habilidadeRepository;
     }
 
-    [HttpGet(Name = "teste")]
-    public async Task<ActionResult> Get(int idCategotia)
+    [HttpGet(Name = "idCategoria")]
+    public async Task<ActionResult> Get(int idCategoria)
     {
-        var habilidades = await _habilidadeRepository.ListarHabilidades(idCategotia);
+        var habilidades = await _habilidadeRepository.ListarHabilidades(idCategoria);
 
         return Ok(habilidades);
     }
