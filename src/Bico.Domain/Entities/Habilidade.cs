@@ -6,4 +6,7 @@ public class Habilidade
     public string Nome { get; set; }
     public int CategoriaId { get; set; }
 
+    public virtual Categoria Categoria { get; set; }
+
+    public virtual ICollection<Prestador> Prestadores { get; set; }
 }

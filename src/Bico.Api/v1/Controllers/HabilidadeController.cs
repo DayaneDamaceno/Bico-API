@@ -1,14 +1,12 @@
-using Bico.Api.v1.Models;
-using Bico.Domain.Entities;
+using Asp.Versioning;
 using Bico.Domain.Interfaces;
-using Bico.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace Bico.Api.v1.Controllers;
 
+[ApiVersion(1.0)]
 [ApiController]
-[Route("[controller]")]
+[Route("v{version:apiVersion}/habilidades")]
 public class HabilidadeController : ControllerBase
 {
     private readonly IHabilidadeRepository _habilidadeRepository;
@@ -18,27 +16,21 @@ public class HabilidadeController : ControllerBase
         _habilidadeRepository = habilidadeRepository;
     }
 
-    [HttpGet("")]
-    public async Task<ActionResult> Get()
+    [HttpGet("categoria/{categoriaId}")]
+    public async Task<ActionResult> Get(int categoriaId)
     {
-        var habilidades = await _habilidadeRepository.ObterHabilidades();       
-       
+        var habilidades = await _habilidadeRepository.ListarHabilidades(categoriaId);
+
         return Ok(habilidades);
     }
 
-     [HttpGet("Buscar/{texto}")]
-    public async Task<ActionResult> GetBuscaHabilidade(string texto)
-     {
+    [HttpGet]
+    public async Task<ActionResult> GetBuscaHabilidade([FromQuery]string texto)
+    {
         var habilidades = await _habilidadeRepository.ObterHabilidadesBusca(texto);
 
         return Ok(habilidades);
-     }
-    /*
-    [HttpPost(Name = "")]
-     public ActionResult CriarHabilidade(Habilidade habilidade)
-     {
-          return Ok(habilidade);
-     }*/
+    }
 
 }
 

@@ -20,6 +20,10 @@ internal static class CategoriaMapping
                    .HasColumnName("nome")
                    .IsRequired();
 
+            entity.HasMany(c => c.Habilidades)
+                   .WithOne(h => h.Categoria)
+                   .HasForeignKey(h => h.CategoriaId);
+
         });
     }
 }

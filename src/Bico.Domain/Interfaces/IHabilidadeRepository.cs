@@ -1,11 +1,11 @@
 ﻿using Bico.Domain.Entities;
 
 
-namespace Bico.Domain.Interfaces
+namespace Bico.Domain.Interfaces;
+
+public interface IHabilidadeRepository
 {
-    public interface IHabilidadeRepository
-    {
-        Task<List<Habilidade>> ObterHabilidades();
-        Task<List<Habilidade>> ObterHabilidadesBusca(string textoPesquisa);
-    }
+    Task<List<Habilidade>> ObterHabilidadesBusca(string textoPesquisa);
+
+    Task<List<Habilidade>> ListarHabilidades(int categoriaId);
 }

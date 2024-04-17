@@ -17,7 +17,9 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<List<Categoria>> ObterCategorias()
     {
-        var categorias = await _context.Categorias.ToListAsync();
+        var categorias = await _context.Categorias
+            .Include(c => c.Habilidades)
+            .ToListAsync();
 
         return categorias;
     }

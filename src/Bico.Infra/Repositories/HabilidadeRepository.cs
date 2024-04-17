@@ -3,6 +3,7 @@ using Bico.Domain.Interfaces;
 using Bico.Infra.DBContext;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Bico.Infra.Repositories;
 
 public class HabilidadeRepository : IHabilidadeRepository
@@ -15,14 +16,17 @@ public class HabilidadeRepository : IHabilidadeRepository
         _context = bicoContext;
     }
 
-    public async Task<List<Habilidade>> ObterHabilidades()
-    {
-        return await _context.Habilidades.ToListAsync();         
-    }
-
     public async Task<List<Habilidade>> ObterHabilidadesBusca(string textoPesquisa)
     {
         return await _context.Habilidades.Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
+    }
 
+    public async Task<List<Habilidade>> ListarHabilidades(int categoriaId)
+    {
+        var habilidades = await _context.Habilidades
+            .Include(h => h.Categoria).Where(x => x.CategoriaId == categoriaId)
+            .ToListAsync();
+
+        return habilidades;
     }
 }
