@@ -1,8 +1,8 @@
 ﻿namespace Bico.Api.v1.Models;
 
-public class Categoria
+public class CategoriaDto
 {
-    public Categoria(string nome)
+    public CategoriaDto(string nome)
     {
         Nome = nome;
     }

@@ -41,7 +41,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write 
 
     steps:
       - name: Download artifact from build job
@@ -55,6 +55,13 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DB8AC20A36A545DE9ADB6CC97856F77D }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F6EA2F2F40DC4C76A352481F3F6E4FFD }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_40ED35745C964F8DBBFD1B15C9874D2A }}
+
+      - name: Fetch DB Connection String from Azure Key Vault
+        id: get-db-connection-string
+        uses: azure/setup-keyvault-secrets@v1
+        with:
+          keyvault-name: ${{ secrets.KEY_VAULT_NAME }}
+          secrets: DBStringConnection
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp

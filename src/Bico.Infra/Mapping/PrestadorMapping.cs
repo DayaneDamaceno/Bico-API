@@ -12,37 +12,50 @@ internal static class PrestadorMapping
         {
             entity.ToTable("prestadores");
 
-            //entity.Property(a => a.Id)
-            //      .HasColumnName("id");
+            entity.Property(p => p.Id)
+                  .HasColumnName("id");
 
-            //entity.HasKey(a => a.Id);
+            entity.HasKey(p => p.Id);
 
-            //entity.Property(a => a.Tipo)
-            //      .HasColumnName("tipo");
+            entity
+                .Property(p => p.Nome)
+                .HasColumnName("nome")
+                .IsRequired()
+                .HasMaxLength(255);
 
-            //entity
-            //    .Property(a => a.Nome)
-            //    .HasColumnName("nome")
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(p => p.AvatarFileName)
+                .HasColumnName("avatar_filename")
+                .IsRequired()
+                .HasMaxLength(255);
 
-            //entity.Property(a => a.Tamanho)
-            //      .HasColumnName("tamanho");
+            entity
+                .Property(p => p.RaioDeAlcance)
+                .HasColumnName("raio_de_alcance")
+                .IsRequired();
 
-            //entity
-            //    .Property(a => a.DataReferencia)
-            //    .HasColumnName("data-referencia")
-            //    .IsRequired();
+            entity
+                .Property(p => p.Localizacao)
+                .HasColumnType("geography (point)")
+                .HasColumnName("localizacao");
 
-            //entity.Property(a => a.EnvioId)
-            //      .HasColumnName("envio-id");
-
-            //entity
-            //    .HasOne(a => a.Envio)
-            //    .WithMany(e => e.Arquivos)
-            //    .HasForeignKey(a => a.EnvioId);
-
-        });
+            entity
+                .HasMany(p => p.Habilidades)
+                .WithMany(h => h.Prestadores)
+                .UsingEntity<Dictionary<string, object>>( 
+                            "prestadores_habilidades", 
+                            j => j.HasOne<Habilidade>()
+                                 .WithMany()
+                                 .HasForeignKey("habilidade_id"),
+                            j => j.HasOne<Prestador>() 
+                                 .WithMany()
+                                 .HasForeignKey("prestador_id"),
+                            j =>
+                            {
+                                j.ToTable("prestadores_habilidades"); 
+                                j.HasKey("prestador_id", "habilidade_id");
+                            });
+                });
     }
 }
 
