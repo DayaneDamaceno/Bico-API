@@ -19,6 +19,7 @@ public static class InjectionService
         services.AddScoped<IPrestadorRepository, PrestadorRepository>();
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<IAvatarRepository, AvatarRepository>();
+        services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
 
         return services;
     }

@@ -1,19 +1,21 @@
 ﻿using Bico.Domain.Entities;
 
-namespace Bico.Api.v1.DTOs
+namespace Bico.Api.v1.DTOs;
+
+public class HabilidadeDto
 {
-    public class HabilidadeDto
+    public HabilidadeDto(string nome, int id)
     {
-        public HabilidadeDto(string nome)
-        {
-            Nome = nome;
-        }
+        Id = id;
+        Nome = nome;
+    }
 
-        public string Nome { get; set; }
+    public int Id { get; set; }
+    public string Nome { get; set; }
 
-        public HabilidadeDto(Habilidade habilidade)
-        {
-            Nome = habilidade.Nome;
-        }
+    public HabilidadeDto(Habilidade habilidade)
+    {
+        Id = habilidade.Id;
+        Nome = habilidade.Nome;
     }
 }
