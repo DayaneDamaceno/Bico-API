@@ -15,9 +15,13 @@ public class PrestadorService : IPrestadorService
         _avatarRepository = avatarRepository;
     }
 
+  
+
     public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina)
     {
         var paginacao = new Paginacao(pagina);
+
+
         var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId, paginacao);
 
         prestadores.ForEach(prestador =>
@@ -27,4 +31,5 @@ public class PrestadorService : IPrestadorService
 
         return prestadores;
     }
+
 }
