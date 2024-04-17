@@ -1,11 +1,6 @@
 ﻿
 using Bico.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bico.Infra.Mapping;
 
@@ -34,15 +29,11 @@ internal static class HabilidadeMapping
                 .IsRequired();
 
             entity.HasOne(h => h.Categoria)
-                   .WithMany()
+                   .WithMany(c => c.Habilidades)
                    .HasForeignKey(h => h.CategoriaId);
 
-              });
-          
-        }
-
-
-           
         });
+
     }
+
 }
