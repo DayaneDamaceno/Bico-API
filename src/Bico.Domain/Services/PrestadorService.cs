@@ -17,12 +17,15 @@ public class PrestadorService : IPrestadorService
 
   
 
-    public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina)
+    public async Task<IEnumerable<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina)
     {
         var paginacao = new Paginacao(pagina);
 
 
         var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId, paginacao);
+
+        if (prestadores is null)
+            return Enumerable.Empty<Prestador>();
 
         prestadores.ForEach(prestador =>
         {

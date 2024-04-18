@@ -4,5 +4,5 @@ namespace Bico.Domain.Interfaces;
 
 public interface IPrestadorService
 {
-    Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina);
+    Task<IEnumerable<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina);
 }
