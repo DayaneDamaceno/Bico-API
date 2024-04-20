@@ -21,7 +21,6 @@ public class PrestadorService : IPrestadorService
     {
         var paginacao = new Paginacao(pagina);
 
-
         var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId, paginacao);
 
         if (prestadores is null)

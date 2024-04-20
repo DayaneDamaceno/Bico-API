@@ -25,7 +25,6 @@ public class PrestadorServiceTests
 
     public PrestadorServiceTests()
     {
-        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
         _fixture = new Fixture();
         _fixture.Customize(new PointCustomization());
 
@@ -33,11 +32,10 @@ public class PrestadorServiceTests
 
         _mockAvatarRepository = new Mock<IAvatarRepository>();
         _prestadorService = new PrestadorService(new PrestadorRepository(_dbFixture.Context), _mockAvatarRepository.Object);
-
     }
 
     [Fact]
-    public async Task DeveRetornarPrestadoresProximosDeUmCliente()
+    public async Task ObterPrestadoresMaisProximosAsync_DeveRetornarPrestadoresProximosDeUmCliente()
     {
         //arrange
         await CriarCenarioComDoisPrestadoresEUmCliente();

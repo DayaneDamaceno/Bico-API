@@ -12,6 +12,7 @@ internal class DatabaseFixture : IDisposable
 
     public DatabaseFixture()
     {
+        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
         Context = new DbConnection().GetBicoContext();
         IniciarTransactionComBaseLimpa().Wait();
     }
