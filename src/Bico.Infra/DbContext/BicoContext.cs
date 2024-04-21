@@ -13,6 +13,7 @@ public partial class BicoContext : DbContext
 
     public virtual DbSet<Categoria> Categorias { get; set; } = null!;
     public virtual DbSet<Habilidade> Habilidades { get; set; } = null!;
+    public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
     public virtual DbSet<Prestador> Prestadores { get; set; } = null!;
     public virtual DbSet<Cliente> Clientes { get; set; } = null!;
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
@@ -31,6 +32,7 @@ public partial class BicoContext : DbContext
 
         CategoriaMapping.Configure(modelBuilder);
         HabilidadeMapping.Configure(modelBuilder);
+        UsuarioMapping.Configure(modelBuilder);
         PrestadorMapping.Configure(modelBuilder);
         ClienteMapping.Configure(modelBuilder);
         AvaliacaoMapping.Configure(modelBuilder);

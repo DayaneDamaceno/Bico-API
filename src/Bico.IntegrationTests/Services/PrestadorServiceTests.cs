@@ -44,7 +44,7 @@ public class PrestadorServiceTests
 
 
         //act
-        var prestadores = await _prestadorService.ObterPrestadoresMaisProximosAsync(clientId: 1, habilidadeId: 1, pagina: 1);
+        var prestadores = await _prestadorService.ObterPrestadoresMaisProximosAsync(clientId: 3, habilidadeId: 1, pagina: 1);
 
         //assert
         Assert.NotEmpty(prestadores);
@@ -54,8 +54,11 @@ public class PrestadorServiceTests
 
     private async Task CriarCenarioComDoisPrestadoresEUmCliente()
     {
-        var categoria = _fixture.Build<Categoria>()
-             .With(p => p.Nome, "Categoria").Create();
+        var categoria = new Categoria()
+        {
+            Id = 1,
+            Nome = "Categoria"
+        };
 
         var habilidade = _fixture.Build<Habilidade>()
             .With(p => p.Id, 1)
@@ -75,6 +78,7 @@ public class PrestadorServiceTests
             .Create();
 
         var prestadorMaua = _fixture.Build<Prestador>()
+            .With(p => p.Id, 2)
              .With(p => p.Nome, "prestadorMaua")
             .With(p => p.Habilidades, new List<Habilidade> { habilidade })
             .With(p => p.RaioDeAlcance, 5000)
@@ -83,7 +87,7 @@ public class PrestadorServiceTests
             .Create();
 
         var clienteSaoBernardo = _fixture.Build<Cliente>()
-            .With(p => p.Id, 1)
+            .With(p => p.Id, 3)
             .With(p => p.Nome, "Cliente")
             .With(p => p.Localizacao, new Point(-46.54270228842959, -23.69777442035469) { SRID = 4326 })
             .Create();

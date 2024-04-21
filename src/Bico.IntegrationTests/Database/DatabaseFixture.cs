@@ -28,7 +28,8 @@ internal class DatabaseFixture : IDisposable
                         development.categorias,
                         development.avaliacoes,
                         development.prestadores,
-                        development.clientes
+                        development.clientes,
+                        development.usuarios
                     RESTART IDENTITY CASCADE;
                 ");
 

@@ -3,17 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bico.Infra.Mapping;
 
-internal static class ClienteMapping
+internal static class UsuarioMapping
 {
 
     public static void Configure(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Cliente>(entity =>
+        modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.ToTable("clientes");
+            entity.ToTable("usuarios");
 
             entity.Property(p => p.Id)
                   .HasColumnName("id");
+
+            entity.HasKey(p => p.Id);
 
             entity
                 .Property(p => p.Nome)
