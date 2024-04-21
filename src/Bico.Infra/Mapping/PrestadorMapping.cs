@@ -15,8 +15,6 @@ internal static class PrestadorMapping
             entity.Property(p => p.Id)
                   .HasColumnName("id");
 
-            entity.HasKey(p => p.Id);
-
             entity
                 .Property(p => p.Nome)
                 .HasColumnName("nome")
@@ -34,10 +32,6 @@ internal static class PrestadorMapping
                 .HasColumnName("raio_de_alcance")
                 .IsRequired();
 
-            entity
-                .Property(p => p.Localizacao)
-                .HasColumnType("geography (point)")
-                .HasColumnName("localizacao");
 
             entity
                 .HasMany(p => p.Habilidades)
