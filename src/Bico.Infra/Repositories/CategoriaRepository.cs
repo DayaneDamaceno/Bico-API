@@ -17,7 +17,7 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<List<Categoria>> ObterCategorias()
     {
-        var categorias = await _context.Categorias
+        var categorias = await _context.Categorias.AsNoTracking()
             .Include(c => c.Habilidades)
             .ToListAsync();
 
@@ -26,6 +26,6 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<List<Categoria>> ObterCategoriasBusca(string textoPesquisa)
     {
-        return await _context.Categorias.Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
+        return await _context.Categorias.AsNoTracking().Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
     }
 }
