@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Bico.Api.Configuration;
+using Bico.Api.v1.Hubs;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,10 +26,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddVersion();
 builder.Services.AddSwaggerGen();
 
+var cs = "Endpoint=https://bico.service.signalr.net;AccessKey=lUUTHvzJM5qOn5+HGPcolAud2yT1lQmIj77OFHHz3Vo=;Version=1.0;";
+
+//builder.Services.AddSignalR().AddAzureSignalR(cs);
+builder.Services.AddSignalR();
+
 builder.Services
     .AddDbContext(builder.Configuration)
     .AddBlobClient(builder.Configuration)
+    .AddServiceBusClient(builder.Configuration)
     .RegisterServices(builder.Configuration);
+
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -45,12 +53,13 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler();
 
+
+app.MapHub<ChatHub>("/hub/chat");
 app.MapControllers();
 
 app.Run();

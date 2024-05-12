@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Messaging.ServiceBus;
+using Azure.Storage.Blobs;
 using Bico.Domain.Interfaces;
 using Bico.Domain.Services;
 using Bico.Infra.DBContext;
@@ -14,6 +15,7 @@ public static class InjectionService
     {
         //Services
         services.AddScoped<IPrestadorService, PrestadorService>();
+        services.AddScoped<IChatService, ChatService>();
         services.AddScoped<IAuthService, AuthService>();
 
         //Repositories
@@ -21,6 +23,7 @@ public static class InjectionService
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<IAvatarRepository, AvatarRepository>();
         services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
+        services.AddScoped<IChatRepository, ChatRepository>();
 
         return services;
     }
