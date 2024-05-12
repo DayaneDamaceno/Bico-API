@@ -14,13 +14,13 @@ if (!string.IsNullOrEmpty(keyVaultEndpoint))
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddControllers();
-
-builder.Services.AddControllers().AddJsonOptions(options => {
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
-
 });
+
+builder.Services.AddAuthWithJwt(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddVersion();
 builder.Services.AddSwaggerGen();
