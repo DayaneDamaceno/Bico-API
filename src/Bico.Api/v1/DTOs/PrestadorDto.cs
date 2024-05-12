@@ -8,6 +8,10 @@ public class PrestadorDto
     public string Nome { get; set; }
     public string AvatarUrl { get; set; }
     public double MediaEstrelas { get; set; }
+    public string Sobre { get; set; }
+    public List<HabilidadeDto> Habilidades { get; set; }
+    public int RaioDeAlcance { get; set; }
+    public List<FotoServico> FotosServico { get; set; }
 
 
     public PrestadorDto(Prestador prestador)
@@ -16,5 +20,10 @@ public class PrestadorDto
         Nome = prestador.Nome;
         AvatarUrl = prestador.AvatarUrl;
         MediaEstrelas = prestador.MediaEstrelas;
+        Sobre = prestador.Sobre;
+        if (prestador.Habilidades != null)
+            Habilidades = prestador.Habilidades.Select(p => new HabilidadeDto(p)).ToList();
+        RaioDeAlcance = prestador.RaioDeAlcance;
+        FotosServico = prestador.FotosServico;
     }
 }

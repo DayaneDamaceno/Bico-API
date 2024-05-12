@@ -17,6 +17,9 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Prestador> Prestadores { get; set; } = null!;
     public virtual DbSet<Cliente> Clientes { get; set; } = null!;
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
+    public virtual DbSet<PrestadorHabilidade> PrestadoresHabilidades { get; set; } = null!;
+    public virtual DbSet<FotoServico> FotosServicos { get; set; } = null!;
+
 
 
 
@@ -29,13 +32,15 @@ public partial class BicoContext : DbContext
         PostGeoExtensions.AddStDWithin(modelBuilder);
         PostGeoExtensions.AddStDistance(modelBuilder);
 
-
+        PrestadorHabilidadeMapping.Configure(modelBuilder);
         CategoriaMapping.Configure(modelBuilder);
         HabilidadeMapping.Configure(modelBuilder);
         UsuarioMapping.Configure(modelBuilder);
         PrestadorMapping.Configure(modelBuilder);
         ClienteMapping.Configure(modelBuilder);
         AvaliacaoMapping.Configure(modelBuilder);
+        FotoServicoMapping.Configure(modelBuilder);
+
 
         OnModelCreatingPartial(modelBuilder);
     }

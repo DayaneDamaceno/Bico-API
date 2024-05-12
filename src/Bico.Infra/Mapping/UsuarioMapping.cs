@@ -22,6 +22,10 @@ internal static class UsuarioMapping
                 .HasColumnName("nome")
                 .IsRequired()
                 .HasMaxLength(255);
+            entity
+              .Property(p => p.Sobre)
+              .HasColumnName("sobre")
+              .IsRequired();
 
             entity
                 .Property(p => p.AvatarFileName)
