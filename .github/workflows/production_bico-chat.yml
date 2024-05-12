@@ -6,7 +6,7 @@ name: Build and deploy dotnet core app to Azure Function App - bico-chat
 on:
   push:
     branches:
-      - 'RQF_01/Envio-de-mensagens'
+      - 'production'
   workflow_dispatch:
 
 env:
