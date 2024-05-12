@@ -49,4 +49,15 @@ public static class InjectionService
 
         return services;
     }
+
+    public static IServiceCollection AddServiceBusClient(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration["ServiceBusConnectionString"];
+        services.AddScoped(_ => {
+            var serviceBusClient = new ServiceBusClient(connectionString);
+            return serviceBusClient;
+        });
+
+        return services;
+    }
 }
