@@ -24,7 +24,7 @@ public class PrestadorService : IPrestadorService
         var prestadores = await _prestadorRepository.ObterPrestadoresMaisProximosAsync(clientId, habilidadeId, paginacao);
 
         if (prestadores is null)
-            return Enumerable.Empty<Prestador>();
+            return [];
 
         prestadores.ForEach(prestador =>
         {
