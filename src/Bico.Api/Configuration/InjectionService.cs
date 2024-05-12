@@ -14,12 +14,14 @@ public static class InjectionService
     {
         //Services
         services.AddScoped<IPrestadorService, PrestadorService>();
+        services.AddScoped<IAuthenticateService,AuthenticateService>();
 
         //Repositories
         services.AddScoped<IPrestadorRepository, PrestadorRepository>();
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<IAvatarRepository, AvatarRepository>();
         services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
+        services.AddScoped<IAcessoRepository, AcessoRepository>();
 
         return services;
     }

@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Bico.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bico.Api.v1.Controllers;
@@ -16,6 +17,7 @@ public class HabilidadeController : ControllerBase
         _habilidadeRepository = habilidadeRepository;
     }
 
+    [Authorize]
     [HttpGet("categoria/{categoriaId}")]
     public async Task<ActionResult> Get(int categoriaId)
     {
