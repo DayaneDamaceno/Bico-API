@@ -1,4 +1,6 @@
-﻿using Bico.Domain.Entities;
+﻿using Bico.Api.v1.Models;
+using Bico.Domain.Entities;
+using System.Linq;
 
 namespace Bico.Api.v1.DTOs;
 
@@ -12,6 +14,7 @@ public class PrestadorDto
     public List<HabilidadeDto> Habilidades { get; set; }
     public int RaioDeAlcance { get; set; }
     public List<FotoServico> FotosServico { get; set; }
+    public List<Avaliacao> Avaliacoes { get; set; }
 
 
     public PrestadorDto(Prestador prestador)
@@ -24,6 +27,7 @@ public class PrestadorDto
         if (prestador.Habilidades != null)
             Habilidades = prestador.Habilidades.Select(p => new HabilidadeDto(p)).ToList();
         RaioDeAlcance = prestador.RaioDeAlcance;
-        FotosServico = prestador.FotosServico;
+        FotosServico = prestador.Fotos.ToList();
+        Avaliacoes = prestador.Avaliacoes.ToList();
     }
 }

@@ -26,6 +26,10 @@ internal static class FotoServicoMapping
               .Property(p => p.PrestadorId)
               .HasColumnName("prestador_id")
               .IsRequired();
+
+            entity.HasOne(p => p.Prestador)
+                .WithMany(p => p.Fotos)
+                .HasForeignKey(p => p.PrestadorId);
           
         });
     }

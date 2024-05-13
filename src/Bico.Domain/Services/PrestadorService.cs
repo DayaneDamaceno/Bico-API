@@ -26,7 +26,7 @@ public class PrestadorService : IPrestadorService
         prestadores.ForEach(prestador =>
         {
             prestador.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.AvatarFileName, "avatar");
-            prestador.FotosServico.ForEach(prestador =>
+            prestador.Fotos.ToList().ForEach(prestador =>
             {
                 prestador.Foto = _avatarRepository.GerarAvatarUrlSegura(prestador.Foto, "servicos");
             });

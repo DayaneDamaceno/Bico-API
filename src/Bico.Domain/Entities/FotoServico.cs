@@ -8,4 +8,6 @@ public class FotoServico
     public int Id { get; set; }
     public string Foto { get; set; }
     public int PrestadorId { get; set; }
+    public virtual Prestador Prestador { get; set; }
+
 }

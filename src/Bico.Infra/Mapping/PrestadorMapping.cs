@@ -31,7 +31,47 @@ internal static class PrestadorMapping
                 .Property(p => p.RaioDeAlcance)
                 .HasColumnName("raio_de_alcance")
                 .IsRequired();
-           
+
+            entity.Property(p => p.Sobre)
+                   .HasColumnName("sobre");
+
+            entity.HasMany(p => p.Fotos)
+                .WithOne(p => p.Prestador)
+                .HasForeignKey(p => p.PrestadorId);
+
+
+            entity
+                .HasMany(p => p.Habilidades)
+                .WithMany(h => h.Prestadores)
+                .UsingEntity<Dictionary<string, object>>(
+                            "prestadores_habilidades",
+                            j => j.HasOne<Habilidade>()
+                                 .WithMany()
+                                 .HasForeignKey("habilidade_id"),
+                            j => j.HasOne<Prestador>()
+                                 .WithMany()
+                                 .HasForeignKey("prestador_id"),
+                            j =>
+                            {
+                                j.ToTable("prestadores_habilidades");
+                                j.HasKey("prestador_id", "habilidade_id");
+                            });
+            //entity
+            //    .HasMany(p => p.Habilidades)
+            //    .WithMany(h => h.Prestadores)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //                "foto_servico",
+            //                j => j.HasOne<Habilidade>()
+            //                     .WithMany()
+            //                     .HasForeignKey("habilidade_id"),
+            //                j => j.HasOne<Prestador>()
+            //                     .WithMany()
+            //                     .HasForeignKey("prestador_id"),
+            //                j =>
+            //                {
+            //                    j.ToTable("foto_servico");
+            //                    j.HasKey("prestador_id", "habilidade_id");
+            //                });
         });
     }
 }

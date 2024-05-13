@@ -9,7 +9,6 @@ public class Usuario
     public string Nome { get; set; }
     public string AvatarFileName { get; set; }
     public Point Localizacao { get; set; }
-    public string Sobre { get; set; }
 
     [NotMapped]
     public string AvatarUrl { get; set; }
