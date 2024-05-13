@@ -23,11 +23,12 @@ public class AuthenticateService : IAuthenticateService
     public async Task<string> Authenticate(string email, string senha)
     {
         var usuario = await _context.ObterUsuarioPorEmail(email);
-        var senhaEhValida = ValidarSenha(usuario, senha);
 
-        if (usuario != null && senhaEhValida)
+        if (usuario != null) { 
+            var senhaEhValida = ValidarSenha(usuario, senha);
             return GerarToken(usuario);
-        
+        }
+
         return string.Empty;
     }
 
