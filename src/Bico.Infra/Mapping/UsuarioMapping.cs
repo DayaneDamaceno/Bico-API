@@ -24,6 +24,18 @@ internal static class UsuarioMapping
                 .HasMaxLength(255);
 
             entity
+                .Property(p => p.Email)
+                .HasColumnName("email")
+                .IsRequired()
+                .HasMaxLength(255);
+
+            entity
+                .Property(p => p.Senha)
+                .HasColumnName("senha")
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            entity
                 .Property(p => p.AvatarFileName)
                 .HasColumnName("avatar_filename")
                 .IsRequired()

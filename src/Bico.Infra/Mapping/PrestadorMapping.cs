@@ -28,6 +28,10 @@ internal static class PrestadorMapping
                 .HasMaxLength(255);
 
             entity
+                .Property(p => p.Sobre)
+                .HasColumnName("sobre");
+
+            entity
                 .Property(p => p.RaioDeAlcance)
                 .HasColumnName("raio_de_alcance")
                 .IsRequired();

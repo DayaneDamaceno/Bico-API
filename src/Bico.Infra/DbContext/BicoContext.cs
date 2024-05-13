@@ -17,7 +17,6 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Prestador> Prestadores { get; set; } = null!;
     public virtual DbSet<Cliente> Clientes { get; set; } = null!;
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
-    public virtual DbSet<Acesso> Acessos { get; set; } = null!;
 
 
 
@@ -37,7 +36,6 @@ public partial class BicoContext : DbContext
         PrestadorMapping.Configure(modelBuilder);
         ClienteMapping.Configure(modelBuilder);
         AvaliacaoMapping.Configure(modelBuilder);
-        AcessoMapping.Configure(modelBuilder);
 
         OnModelCreatingPartial(modelBuilder);
     }
