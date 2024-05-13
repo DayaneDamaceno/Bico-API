@@ -60,3 +60,4 @@ jobs:
           app-name: 'bico-api-hml'
           slot-name: 'Production'
           package: .
+          
