@@ -1,4 +1,4 @@
-name: Build and deploy Bico Api - Hml
+name: Bico Api - Hml
 
 on:
   push:
