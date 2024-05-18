@@ -19,7 +19,7 @@ public class Functions
         _chatService = chatService;
         var token = authService.GenerateToken(new Usuario() { Id = 0, Nome = "Azure Function" });
         _connectionHub = new HubConnectionBuilder()
-                                .WithUrl("http://192.168.0.8:5283/hub/chat", x => x.AccessTokenProvider = () => Task.FromResult(token))
+                                .WithUrl("https://bico-api-hml.azurewebsites.net/hub/chat", x => x.AccessTokenProvider = () => Task.FromResult(token))
                                 .Build();
     }
 
