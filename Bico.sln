@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bico.UnitTests", "src\Bico.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bico.IntegrationTests", "src\Bico.IntegrationTests\Bico.IntegrationTests.csproj", "{F44CD311-7A9D-4881-802C-3A7F568AFAF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bico.Chat.Functions", "src\Bico.Chat.Functions\Bico.Chat.Functions.csproj", "{5CFFEFC1-5000-41BA-9892-9C1E7FE5D6E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bico.Chat.Functions", "src\Bico.Chat.Functions\Bico.Chat.Functions.csproj", "{5CFFEFC1-5000-41BA-9892-9C1E7FE5D6E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
