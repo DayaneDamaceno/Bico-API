@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bico.Domain\Bico.Domain.csproj" />
     <ProjectReference Include="..\Bico.Infra\Bico.Infra.csproj" />
+    <ProjectReference Include="..\Bico.IntegrationTests\Bico.IntegrationTests.csproj" />
   </ItemGroup>
 
 </Project>

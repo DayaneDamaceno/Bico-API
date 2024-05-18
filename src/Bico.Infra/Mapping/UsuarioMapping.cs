@@ -22,10 +22,22 @@ internal class UsuarioMapping : IEntityTypeConfiguration<Usuario>
             .HasMaxLength(255);
 
         builder
+            .Property(p => p.Email)
+                .HasColumnName("email")
+                .IsRequired()
+                .HasMaxLength(255);
+
+        builder
+            .Property(p => p.Senha)
+                .HasColumnName("senha")
+                .IsRequired()
+                .HasMaxLength(1000);
+
+        builder
             .Property(p => p.AvatarFileName)
-            .HasColumnName("avatar_filename")
-            .IsRequired()
-            .HasMaxLength(255);
+                .HasColumnName("avatar_filename")
+                .IsRequired()
+                .HasMaxLength(255);
 
         builder
             .Property(p => p.Localizacao)

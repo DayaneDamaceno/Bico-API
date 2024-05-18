@@ -15,8 +15,8 @@ public static class InjectionService
     {
         //Services
         services.AddScoped<IPrestadorService, PrestadorService>();
+        services.AddScoped<IAuthenticateService,AuthenticateService>();
         services.AddScoped<IChatService, ChatService>();
-        services.AddScoped<IAuthService, AuthService>();
 
         //Repositories
         services.AddScoped<IPrestadorRepository, PrestadorRepository>();
@@ -24,6 +24,7 @@ public static class InjectionService
         services.AddScoped<IAvatarRepository, AvatarRepository>();
         services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
         services.AddScoped<IChatRepository, ChatRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
         return services;
     }

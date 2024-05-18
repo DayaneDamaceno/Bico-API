@@ -26,9 +26,13 @@ internal class PrestadorMapping : IEntityTypeConfiguration<Prestador>
             .HasMaxLength(255);
 
         builder
+            .Property(p => p.Sobre)
+                .HasColumnName("sobre");
+
+        builder
             .Property(p => p.RaioDeAlcance)
-            .HasColumnName("raio_de_alcance")
-            .IsRequired();
+                .HasColumnName("raio_de_alcance")
+                .IsRequired();
 
 
         builder
