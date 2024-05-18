@@ -38,5 +38,5 @@ jobs:
         with:
           app-name: 'bico-chat'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/bin/Release/net8.0'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F451752A1B874E8E8F0003B5F1D4F027 }}
