@@ -20,11 +20,11 @@ public class AutenticacaoController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult> Login(UsuarioDto usuario)
     {
-        var token = await _authenticateService.Authenticate(usuario.Email, usuario.Senha);
+        var (id, token) = await _authenticateService.Authenticate(usuario.Email, usuario.Senha);
 
         if(string.IsNullOrEmpty(token))
             return Unauthorized();
         
-        return Ok( new { Token = token });
+        return Ok( new { id, token });
     }
 }

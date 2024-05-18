@@ -1,59 +1,57 @@
 ﻿using Bico.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bico.Infra.Mapping;
 
-internal static class PrestadorMapping
+internal class PrestadorMapping : IEntityTypeConfiguration<Prestador>
 {
-
-    public static void Configure(ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<Prestador> builder)
     {
-        modelBuilder.Entity<Prestador>(entity =>
-        {
-            entity.ToTable("prestadores");
+        builder.ToTable("prestadores");
 
-            entity.Property(p => p.Id)
-                  .HasColumnName("id");
+        builder.Property(p => p.Id)
+              .HasColumnName("id");
 
-            entity
-                .Property(p => p.Nome)
-                .HasColumnName("nome")
-                .IsRequired()
-                .HasMaxLength(255);
+        builder
+            .Property(p => p.Nome)
+            .HasColumnName("nome")
+            .IsRequired()
+            .HasMaxLength(255);
 
-            entity
-                .Property(p => p.AvatarFileName)
-                .HasColumnName("avatar_filename")
-                .IsRequired()
-                .HasMaxLength(255);
+        builder
+            .Property(p => p.AvatarFileName)
+            .HasColumnName("avatar_filename")
+            .IsRequired()
+            .HasMaxLength(255);
 
-            entity
-                .Property(p => p.Sobre)
+        builder
+            .Property(p => p.Sobre)
                 .HasColumnName("sobre");
 
-            entity
-                .Property(p => p.RaioDeAlcance)
+        builder
+            .Property(p => p.RaioDeAlcance)
                 .HasColumnName("raio_de_alcance")
                 .IsRequired();
 
 
-            entity
-                .HasMany(p => p.Habilidades)
-                .WithMany(h => h.Prestadores)
-                .UsingEntity<Dictionary<string, object>>( 
-                            "prestadores_habilidades", 
-                            j => j.HasOne<Habilidade>()
-                                 .WithMany()
-                                 .HasForeignKey("habilidade_id"),
-                            j => j.HasOne<Prestador>() 
-                                 .WithMany()
-                                 .HasForeignKey("prestador_id"),
-                            j =>
-                            {
-                                j.ToTable("prestadores_habilidades"); 
-                                j.HasKey("prestador_id", "habilidade_id");
-                            });
-                });
+        builder
+            .HasMany(p => p.Habilidades)
+            .WithMany(h => h.Prestadores)
+            .UsingEntity<Dictionary<string, object>>(
+                        "prestadores_habilidades",
+                        j => j.HasOne<Habilidade>()
+                                .WithMany()
+                                .HasForeignKey("habilidade_id"),
+                        j => j.HasOne<Prestador>()
+                                .WithMany()
+                                .HasForeignKey("prestador_id"),
+                        j =>
+                        {
+                            j.ToTable("prestadores_habilidades");
+                            j.HasKey("prestador_id", "habilidade_id");
+                        });
+
     }
 }
 
