@@ -16,6 +16,15 @@ public class ChatHub : Hub
             await Clients.Client(connectionId).SendAsync("ReceiveMessage", message);
         }
     }
+
+    public async Task EnviarAtualizacaoDeLeitura(string receiverUserName, int mensagemId)
+    {
+        foreach (var connectionId in _connections.GetConnections(receiverUserName))
+        {
+            await Clients.Client(connectionId).SendAsync("ReceiveReadingUpdate", mensagemId);
+        }
+    }
+
     public override Task OnConnectedAsync()
     {
         string userId = Context.User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -36,5 +45,10 @@ public class ChatHub : Hub
 
         _connections.Remove(userId, Context.ConnectionId);
         return base.OnDisconnectedAsync(exception);
+    }
+
+    public static IEnumerable<string> GetConnections(string userId)
+    {
+        return _connections.GetConnections(userId);
     }
 }

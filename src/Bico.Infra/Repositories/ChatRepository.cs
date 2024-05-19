@@ -20,11 +20,11 @@ public class ChatRepository : IChatRepository
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Mensagem>> ObterConversaEntreUsuariosAsync(int usuarioId1, int usuarioId2)
+    public async Task<IEnumerable<Mensagem>> ObterConversaEntreUsuariosAsync(int usuarioIdA, int usuarioIdB)
     {
         var conversa = await _context.Mensagens.AsNoTracking()
-                                        .Where(m => (m.RemetenteId == usuarioId1 && m.DestinatarioId == usuarioId2)
-                                                    || (m.RemetenteId == usuarioId2 && m.DestinatarioId == usuarioId1))
+                                        .Where(m => (m.RemetenteId == usuarioIdA && m.DestinatarioId == usuarioIdB)
+                                                    || (m.RemetenteId == usuarioIdB && m.DestinatarioId == usuarioIdA))
                                         .OrderBy(m => m.EnviadoEm)
                                         .ToListAsync();
 
@@ -37,10 +37,50 @@ public class ChatRepository : IChatRepository
                                         .Include(x => x.Destinatario)
                                         .Include(x => x.Remetente)
                                         .Where(m => m.RemetenteId == usuarioId || m.DestinatarioId == usuarioId)
-                                        .OrderByDescending(m => m.EnviadoEm)
+                                        .OrderBy(m => m.MensagemLida)
+                                        .ThenByDescending(m => m.EnviadoEm)
                                         .ToListAsync();
 
         return conversa;
+    }
+
+    public async Task<Dictionary<int, int>> ObterContagemMensagensNaoLidasAsync(int usuarioId)
+    {
+        var contagem = await _context.Mensagens
+                                     .Where(m => m.DestinatarioId == usuarioId && !m.MensagemLida)
+                                     .GroupBy(m => m.RemetenteId)
+                                     .Select(g => new { RemetenteId = g.Key, Contagem = g.Count() })
+                                     .ToDictionaryAsync(g => g.RemetenteId, g => g.Contagem);
+
+        return contagem;
+    }
+
+    public async Task<Mensagem> MarcarMensagemComoLidaAsync(int mensagemId)
+    {
+        var mensagem = await _context.Mensagens.FirstOrDefaultAsync(m => m.Id == mensagemId);
+
+        if (mensagem is not null && !mensagem.MensagemLida)
+        {
+            mensagem.MensagemLida = true;
+            await _context.SaveChangesAsync();
+        }
+
+        return mensagem;
+    }
+
+    public async Task<IEnumerable<Mensagem>> MarcarMensagensComoLidaAsync(IEnumerable<int> ids)
+    {
+        var mensagens = await _context.Mensagens
+                                       .Where(m => ids.Contains(m.Id))
+                                       .ToListAsync();
+
+        foreach (var mensagem in mensagens)
+        {
+            mensagem.MensagemLida = true;
+        }
+
+        await _context.SaveChangesAsync();
+        return mensagens;
     }
 
     public async Task SalvarMensagemAsync(Mensagem mensagem)
@@ -60,6 +100,7 @@ public class ChatRepository : IChatRepository
 
         await sender.SendMessageAsync(message);
 
-        _logger.LogInformation("Sent a single message to the queue: {queueName}", queueName);
+        _logger.LogInformation("Sent a single message to the queue: {QueueName}", queueName);
     }
+
 }
