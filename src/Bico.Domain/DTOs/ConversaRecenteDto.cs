@@ -1,6 +1,6 @@
 ﻿using Bico.Domain.Entities;
 
-namespace Bico.Api.v1.DTOs;
+namespace Bico.Domain.DTOs;
 
 public class ConversaRecenteDto
 {
@@ -18,4 +18,6 @@ public class ConversaRecenteDto
     public string AvatarUrl { get; set; }
     public string UltimaMensagem { get; set; }
     public DateTime DataUltimaMensagem { get; set; }
+    public int QuantidadeMensagensNaoLidas { get; set; }
+
 }

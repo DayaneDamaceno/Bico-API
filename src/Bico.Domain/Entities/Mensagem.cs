@@ -4,7 +4,6 @@ namespace Bico.Domain.Entities;
 
 public class Mensagem
 {
-    //[JsonIgnore]
     public int Id { get; set; }
 
     public int RemetenteId { get; set; }
@@ -14,6 +13,8 @@ public class Mensagem
     public string Conteudo { get; set; }
 
     public DateTime EnviadoEm { get; set; }
+
+    public bool MensagemLida { get; set; }
 
     [JsonIgnore]
     public Usuario Remetente { get; set; }

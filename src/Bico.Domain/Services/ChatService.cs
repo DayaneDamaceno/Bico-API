@@ -1,4 +1,5 @@
-﻿using Bico.Domain.Entities;
+﻿using Bico.Domain.DTOs;
+using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
 using System.Text.Json;
 
@@ -31,21 +32,30 @@ public class ChatService : IChatService
         return mensagem;
     }
 
-    public async Task<IEnumerable<Mensagem>> ObterConversasRecentes(int usuarioId)
+    public async Task<IEnumerable<ConversaRecenteDto>> ObterConversasRecentes(int usuarioId)
     {
         var mensagens = await _chatRepository.ObterConversasRecentesAsync(usuarioId);
+        var contagemNaoLidas = await _chatRepository.ObterContagemMensagensNaoLidasAsync(usuarioId);
+
 
         var conversasAgrupadas = mensagens
                                    .GroupBy(m => new { MinId = Math.Min(m.RemetenteId, m.DestinatarioId), MaxId = Math.Max(m.RemetenteId, m.DestinatarioId) })
                                    .Select(g => g.First())
                                    .ToList();
-
-        conversasAgrupadas.ForEach(mensagem =>
+       
+        var conversas = conversasAgrupadas.Select(m =>
         {
-            mensagem.Remetente.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(mensagem.Remetente.AvatarFileName);
-            mensagem.Destinatario.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(mensagem.Destinatario.AvatarFileName);
+            var avatarFileName = m.RemetenteId == usuarioId ? m.Destinatario.AvatarFileName : m.Remetente.AvatarFileName;
+            var dto = new ConversaRecenteDto(m, usuarioId)
+            {
+                AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(avatarFileName)
+            };
+            dto.QuantidadeMensagensNaoLidas = contagemNaoLidas.TryGetValue(dto.Id, out int value) ? value : 0;
+            return dto;
         });
 
-        return conversasAgrupadas;
+        return conversas;
     }
+
+    
 }
