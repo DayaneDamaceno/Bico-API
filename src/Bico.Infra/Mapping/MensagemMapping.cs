@@ -1,8 +1,6 @@
 ﻿using Bico.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Bico.Infra.Mapping;
 
@@ -34,6 +32,11 @@ internal class MensagemMapping : IEntityTypeConfiguration<Mensagem>
             .Property(m => m.EnviadoEm)
             .HasColumnName("enviado_em")
             .IsRequired();
+
+        builder
+            .Property(m => m.MensagemLida)
+            .HasColumnName("mensagem_lida")
+            .HasDefaultValue(false);
 
         builder.HasOne(m => m.Remetente)
             .WithMany()
