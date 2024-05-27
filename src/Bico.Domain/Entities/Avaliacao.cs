@@ -1,4 +1,6 @@
-﻿namespace Bico.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bico.Domain.Entities;
 
 public class Avaliacao
 {

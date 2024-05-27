@@ -14,7 +14,7 @@ public class PrestadorDto
     public List<HabilidadeDto> Habilidades { get; set; }
     public int RaioDeAlcance { get; set; }
     public List<FotoServico> FotosServico { get; set; }
-    public List<Avaliacao> Avaliacoes { get; set; }
+    public List<AvaliacaoDto> Avaliacoes { get; set; }
 
 
     public PrestadorDto(Prestador prestador)
@@ -28,6 +28,7 @@ public class PrestadorDto
             Habilidades = prestador.Habilidades.Select(p => new HabilidadeDto(p)).ToList();
         RaioDeAlcance = prestador.RaioDeAlcance;
         FotosServico = prestador.Fotos.ToList();
-        Avaliacoes = prestador.Avaliacoes.ToList();
+        if (prestador.Avaliacoes != null)
+            Avaliacoes = prestador.Avaliacoes.Select(p => new AvaliacaoDto(p)).ToList();
     }
 }

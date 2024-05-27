@@ -30,6 +30,10 @@ public class PrestadorService : IPrestadorService
             {
                 prestador.Foto = _avatarRepository.GerarAvatarUrlSegura(prestador.Foto, "servicos");
             });
+            prestador.Avaliacoes.ToList().ForEach(prestador =>
+            {
+                prestador.Cliente.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.Cliente.AvatarFileName, "avatar");
+            });
         });
 
 

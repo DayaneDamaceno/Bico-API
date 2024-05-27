@@ -24,7 +24,6 @@ public class PrestadorRepository : IPrestadorRepository
                              .Where(c => c.Id == clienteId)
                              .Select(c => c.Localizacao)
                              .FirstOrDefaultAsync();
-
         var prestadoresProximos = _context.Prestadores
             .Where(p => p.Habilidades.Any(h => h.Id == habilidadeId))
             .Where(p => p.Localizacao.StDWithin(localizacaoDoCliente, p.RaioDeAlcance, true))
@@ -46,7 +45,7 @@ public class PrestadorRepository : IPrestadorRepository
     public async Task<List<Prestador>> ObterPrestador(int prestadorId)
     {
 
-        var prestadoresProximos = _context.Prestadores
+        var prestador = _context.Prestadores
                 .Where(p => p.Id == prestadorId)
                 .Select(p => new Prestador
                 {
@@ -61,7 +60,12 @@ public class PrestadorRepository : IPrestadorRepository
                     Sobre = p.Sobre
                 })
                 .ToList();
-
-        return prestadoresProximos;
+        foreach (var avaliacao in prestador.LastOrDefault().Avaliacoes)
+        {
+            avaliacao.Cliente = await _context.Clientes
+                                 .Where(c => c.Id == avaliacao.ClienteId)
+                                 .FirstOrDefaultAsync();
+        }
+        return prestador;
     }
 }
