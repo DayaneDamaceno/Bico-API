@@ -23,6 +23,7 @@ public class ChatRepository : IChatRepository
     public async Task<IEnumerable<Mensagem>> ObterConversaEntreUsuariosAsync(int usuarioIdA, int usuarioIdB)
     {
         var conversa = await _context.Mensagens.AsNoTracking()
+                                        .Include(m => m.Acordo)
                                         .Where(m => (m.RemetenteId == usuarioIdA && m.DestinatarioId == usuarioIdB)
                                                     || (m.RemetenteId == usuarioIdB && m.DestinatarioId == usuarioIdA))
                                         .OrderBy(m => m.EnviadoEm)

@@ -29,6 +29,11 @@ internal class MensagemMapping : IEntityTypeConfiguration<Mensagem>
             .IsRequired();
 
         builder
+           .Property(m => m.Tipo)
+           .HasColumnName("tipo")
+           .IsRequired();
+
+        builder
             .Property(m => m.EnviadoEm)
             .HasColumnName("enviado_em")
             .IsRequired();

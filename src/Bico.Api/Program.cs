@@ -18,6 +18,7 @@ builder.Host.UseSerilog((context, configuration) =>
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.Converters.Add(new DateTimeConverterWithZuluSuffix());
     options.JsonSerializerOptions.WriteIndented = true;
 });
 

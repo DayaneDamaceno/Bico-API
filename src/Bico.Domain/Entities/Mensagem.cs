@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Bico.Domain.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace Bico.Domain.Entities;
 
@@ -12,6 +13,8 @@ public class Mensagem
 
     public string Conteudo { get; set; }
 
+    public TipoMensagem Tipo { get; set; }
+
     public DateTime EnviadoEm { get; set; }
 
     public bool MensagemLida { get; set; }
@@ -21,4 +24,6 @@ public class Mensagem
 
     [JsonIgnore]
     public Usuario Destinatario { get; set; }
+
+    public virtual Acordo Acordo { get; set; }
 }

@@ -1,6 +1,7 @@
 ﻿using Bico.Domain.DTOs;
 using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
+using Bico.Domain.ValueObjects;
 using System.Text.Json;
 
 namespace Bico.Domain.Services;
@@ -8,11 +9,13 @@ namespace Bico.Domain.Services;
 public class ChatService : IChatService
 {
     private readonly IChatRepository _chatRepository;
+    private readonly IAcordoRepository _acordoRepository;
     private readonly IAvatarRepository _avatarRepository;
 
-    public ChatService(IChatRepository chatRepository, IAvatarRepository avatarRepository)
+    public ChatService(IChatRepository chatRepository, IAcordoRepository acordoRepository, IAvatarRepository avatarRepository)
     {
         _chatRepository = chatRepository;
+        _acordoRepository = acordoRepository;
         _avatarRepository = avatarRepository;
     }
 
@@ -29,6 +32,7 @@ public class ChatService : IChatService
         //TO DO: if (mensagem is null) tratar retorno;
 
         await _chatRepository.SalvarMensagemAsync(mensagem);
+
         return mensagem;
     }
 

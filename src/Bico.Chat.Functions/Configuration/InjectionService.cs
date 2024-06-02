@@ -18,10 +18,12 @@ public static class InjectionService
         //Services
         services.AddScoped<IChatService, ChatService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IAcordoService, AcordoService>();
 
         //Repositories
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IAvatarRepository, AvatarRepository>();
+        services.AddScoped<IAcordoRepository, AcordoRepository>();
 
         return services;
     }
