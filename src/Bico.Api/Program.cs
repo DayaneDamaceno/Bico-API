@@ -27,9 +27,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddVersion();
 builder.Services.AddSwaggerGen();
 
-var cs = "Endpoint=https://bico.service.signalr.net;AccessKey=lUUTHvzJM5qOn5+HGPcolAud2yT1lQmIj77OFHHz3Vo=;Version=1.0;";
-
-//builder.Services.AddSignalR().AddAzureSignalR(cs);
 builder.Services.AddSignalR();
 
 builder.Services
