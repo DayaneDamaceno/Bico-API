@@ -18,6 +18,7 @@ builder.Host.UseSerilog((context, configuration) =>
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.Converters.Add(new DateTimeConverterWithZuluSuffix());
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
@@ -26,9 +27,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddVersion();
 builder.Services.AddSwaggerGen();
 
-var cs = "Endpoint=https://bico.service.signalr.net;AccessKey=lUUTHvzJM5qOn5+HGPcolAud2yT1lQmIj77OFHHz3Vo=;Version=1.0;";
-
-//builder.Services.AddSignalR().AddAzureSignalR(cs);
 builder.Services.AddSignalR();
 
 builder.Services
