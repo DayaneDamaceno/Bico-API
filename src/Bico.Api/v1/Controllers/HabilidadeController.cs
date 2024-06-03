@@ -8,7 +8,7 @@ namespace Bico.Api.v1.Controllers;
 [ApiVersion(1.0)]
 [ApiController]
 [Route("v{version:apiVersion}/habilidades")]
-[Authorize]
+//[Authorize]
 public class HabilidadeController : ControllerBase
 {
     private readonly IHabilidadeRepository _habilidadeRepository;
@@ -18,7 +18,6 @@ public class HabilidadeController : ControllerBase
         _habilidadeRepository = habilidadeRepository;
     }
 
-    [Authorize]
     [HttpGet("categoria/{categoriaId}")]
     public async Task<ActionResult> Get(int categoriaId)
     {

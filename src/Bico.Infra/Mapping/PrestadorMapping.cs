@@ -35,6 +35,9 @@ internal class PrestadorMapping : IEntityTypeConfiguration<Prestador>
                 .IsRequired();
 
 
+        builder.HasMany(p => p.Fotos)
+                .WithOne(p => p.Prestador)
+                .HasForeignKey(p => p.PrestadorId);
         builder
             .HasMany(p => p.Habilidades)
             .WithMany(h => h.Prestadores)

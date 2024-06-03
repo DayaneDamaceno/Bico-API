@@ -20,10 +20,11 @@ public static class InjectionService
         services.AddScoped<IAcordoService, AcordoService>();
 
         //Repositories
-        services.AddScoped<IPrestadorRepository, PrestadorRepository>();
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         services.AddScoped<IAvatarRepository, AvatarRepository>();
         services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
+        services.AddScoped<IPrestadorRepository, PrestadorRepository>();
+
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IAcordoRepository, AcordoRepository>();

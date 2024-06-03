@@ -52,7 +52,7 @@ public class ChatService : IChatService
             var avatarFileName = m.RemetenteId == usuarioId ? m.Destinatario.AvatarFileName : m.Remetente.AvatarFileName;
             var dto = new ConversaRecenteDto(m, usuarioId)
             {
-                AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(avatarFileName)
+                AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(avatarFileName, "avatar")
             };
             dto.QuantidadeMensagensNaoLidas = contagemNaoLidas.TryGetValue(dto.Id, out int value) ? value : 0;
             return dto;

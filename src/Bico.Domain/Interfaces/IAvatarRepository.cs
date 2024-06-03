@@ -2,6 +2,6 @@
 {
     public interface IAvatarRepository
     {
-        string GerarAvatarUrlSegura(string blobName);
+        string GerarAvatarUrlSegura(string blobName, string containerName);
     }
 }

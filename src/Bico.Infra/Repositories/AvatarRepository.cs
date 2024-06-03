@@ -17,9 +17,8 @@ public class AvatarRepository : IAvatarRepository
         _blobServiceClient = blobServiceClient;
     }
 
-    public string GerarAvatarUrlSegura(string blobName)
+    public string GerarAvatarUrlSegura(string blobName, string containerName)
     {
-        const string containerName = "avatar";
         var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
         var blobClient = containerClient.GetBlobClient(blobName);
 
@@ -37,6 +36,7 @@ public class AvatarRepository : IAvatarRepository
 
         return $"{blobClient.Uri}?{sasToken}";
     }
+
 
     private string ObterSASToken(BlobSasBuilder sasBuilder)
     {

@@ -29,7 +29,7 @@ public class PrestadorServiceTests
         _mockPrestadorRepository.Setup(repo => repo.ObterPrestadoresMaisProximosAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Paginacao>()))
                                 .ReturnsAsync(() => null);
 
-        _mockAvatarRepository.Setup(repo => repo.GerarAvatarUrlSegura(It.IsAny<string>()))
+        _mockAvatarRepository.Setup(repo => repo.GerarAvatarUrlSegura(It.IsAny<string>(), "avatar"))
                              .Returns((string filename) => $"http://test.com/{filename}");
 
 

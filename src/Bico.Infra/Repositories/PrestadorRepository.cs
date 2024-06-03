@@ -4,6 +4,7 @@ using Bico.Domain.ValueObjects;
 using Bico.Infra.DBContext;
 using Bico.Infra.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Bico.Infra.Repositories;
 
@@ -16,6 +17,7 @@ public class PrestadorRepository : IPrestadorRepository
         _context = bicoContext;
     }
 
+
     public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clienteId, int habilidadeId, Paginacao paginacao)
     {
         var localizacaoDoCliente = await _context.Clientes.AsNoTracking()
@@ -23,7 +25,7 @@ public class PrestadorRepository : IPrestadorRepository
                              .Select(c => c.Localizacao)
                              .FirstOrDefaultAsync();
 
-        var prestadoresProximos = _context.Prestadores.AsNoTracking()
+        var prestadoresProximos = await _context.Prestadores.AsNoTracking()
             .Where(p => p.Habilidades.Any(h => h.Id == habilidadeId))
             .Where(p => p.Localizacao.StDWithin(localizacaoDoCliente, p.RaioDeAlcance, true))
             .OrderBy(p => p.Localizacao.StDistance(localizacaoDoCliente, true))
@@ -37,10 +39,36 @@ public class PrestadorRepository : IPrestadorRepository
             })
             .Skip(paginacao.ObterSkip())
             .Take(paginacao.QuantidadeDeItens)
-            .ToList();      
-
+            .ToListAsync();
 
         return prestadoresProximos;
+    }
+    public async Task<List<Prestador>> ObterPrestador(int prestadorId)
+    {
+
+        var prestador = await _context.Prestadores
+                .Where(p => p.Id == prestadorId)
+                .Select(p => new Prestador
+                {
+                    Id = p.Id,
+                    Nome = p.Nome,
+                    AvatarFileName = p.AvatarFileName,
+                    Fotos = p.Fotos,
+                    Habilidades = p.Habilidades,
+                    Avaliacoes = p.Avaliacoes,
+                    MediaEstrelas = p.Avaliacoes.Any() ? p.Avaliacoes.Average(a => (double)a.QuantidadeEstrelas) : 0,
+                    RaioDeAlcance = p.RaioDeAlcance,
+                    Sobre = p.Sobre
+                })
+                .ToListAsync();
+
+        foreach (var avaliacao in prestador.LastOrDefault().Avaliacoes)
+        {
+            avaliacao.Cliente = await _context.Clientes
+                                 .Where(c => c.Id == avaliacao.ClienteId)
+                                 .FirstOrDefaultAsync();
+        }
+        return prestador;
     }
 }
 

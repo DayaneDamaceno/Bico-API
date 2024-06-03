@@ -9,7 +9,7 @@ namespace Bico.Api.v1.Controllers;
 [ApiVersion(1.0)]
 [ApiController]
 [Route("v{version:apiVersion}/clientes")]
-[Authorize]
+//[Authorize]
 public class ClienteController : ControllerBase
 {
     private readonly IPrestadorService _prestadorService;
@@ -27,7 +27,6 @@ public class ClienteController : ControllerBase
 
         return Ok(prestadoresDto);
     }
-
     
 
 

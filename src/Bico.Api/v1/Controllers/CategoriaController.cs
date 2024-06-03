@@ -9,7 +9,7 @@ namespace Bico.Api.v1.Controllers;
 [ApiVersion(1.0)]
 [ApiController]
 [Route("v{version:apiVersion}/categorias")]
-[Authorize]
+//[Authorize]
 public class CategoriaController : ControllerBase
 {
     private readonly ICategoriaRepository _categoriaRepository;
