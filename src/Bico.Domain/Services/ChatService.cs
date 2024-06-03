@@ -1,6 +1,7 @@
 ﻿using Bico.Domain.DTOs;
 using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
+using Bico.Domain.ValueObjects;
 using System.Text.Json;
 
 namespace Bico.Domain.Services;
@@ -8,11 +9,13 @@ namespace Bico.Domain.Services;
 public class ChatService : IChatService
 {
     private readonly IChatRepository _chatRepository;
+    private readonly IAcordoRepository _acordoRepository;
     private readonly IAvatarRepository _avatarRepository;
 
-    public ChatService(IChatRepository chatRepository, IAvatarRepository avatarRepository)
+    public ChatService(IChatRepository chatRepository, IAcordoRepository acordoRepository, IAvatarRepository avatarRepository)
     {
         _chatRepository = chatRepository;
+        _acordoRepository = acordoRepository;
         _avatarRepository = avatarRepository;
     }
 
@@ -29,6 +32,7 @@ public class ChatService : IChatService
         //TO DO: if (mensagem is null) tratar retorno;
 
         await _chatRepository.SalvarMensagemAsync(mensagem);
+
         return mensagem;
     }
 
@@ -48,7 +52,7 @@ public class ChatService : IChatService
             var avatarFileName = m.RemetenteId == usuarioId ? m.Destinatario.AvatarFileName : m.Remetente.AvatarFileName;
             var dto = new ConversaRecenteDto(m, usuarioId)
             {
-                AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(avatarFileName)
+                AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(avatarFileName, "avatar")
             };
             dto.QuantidadeMensagensNaoLidas = contagemNaoLidas.TryGetValue(dto.Id, out int value) ? value : 0;
             return dto;

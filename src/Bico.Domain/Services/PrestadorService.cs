@@ -1,6 +1,7 @@
 ﻿using Bico.Domain.Entities;
 using Bico.Domain.Interfaces;
 using Bico.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bico.Domain.Services;
 
@@ -15,7 +16,29 @@ public class PrestadorService : IPrestadorService
         _avatarRepository = avatarRepository;
     }
 
-  
+    public async Task<List<Prestador>> ObterPrestador(int prestadorId)
+    {
+        var prestadores = await _prestadorRepository.ObterPrestador(prestadorId);
+
+        if (prestadores is null)
+            return prestadores;
+
+        prestadores.ForEach(prestador =>
+        {
+            prestador.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.AvatarFileName, "avatar");
+            prestador.Fotos.ToList().ForEach(prestador =>
+            {
+                prestador.Foto = _avatarRepository.GerarAvatarUrlSegura(prestador.Foto, "servicos");
+            });
+            prestador.Avaliacoes.ToList().ForEach(prestador =>
+            {
+                prestador.Cliente.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.Cliente.AvatarFileName, "avatar");
+            });
+        });
+
+
+        return prestadores;
+    }
 
     public async Task<IEnumerable<Prestador>> ObterPrestadoresMaisProximosAsync(int clientId, int habilidadeId, int pagina)
     {
@@ -28,7 +51,7 @@ public class PrestadorService : IPrestadorService
 
         prestadores.ForEach(prestador =>
         {
-            prestador.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.AvatarFileName);
+            prestador.AvatarUrl = _avatarRepository.GerarAvatarUrlSegura(prestador.AvatarFileName, "avatar");
         });
 
         return prestadores;

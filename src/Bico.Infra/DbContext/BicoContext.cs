@@ -16,7 +16,10 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Prestador> Prestadores { get; set; } = null!;
     public virtual DbSet<Cliente> Clientes { get; set; } = null!;
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
+    public virtual DbSet<FotoServico> Fotos { get; set; } = null!;
+
     public virtual DbSet<Mensagem> Mensagens { get; set; } = null!;
+    public virtual DbSet<Acordo> Acordos { get; set; } = null!;
 
 
 
