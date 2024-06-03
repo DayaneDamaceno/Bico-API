@@ -24,11 +24,12 @@ public class PrestadorDto
         AvatarUrl = prestador.AvatarUrl;
         MediaEstrelas = prestador.MediaEstrelas;
         Sobre = prestador.Sobre;
-        if (prestador.Habilidades != null)
-            Habilidades = prestador.Habilidades.Select(p => new HabilidadeDto(p)).ToList();
         RaioDeAlcance = prestador.RaioDeAlcance;
-        FotosServico = prestador.Fotos.ToList();
-        if (prestador.Avaliacoes != null)
+        if (prestador.Habilidades is not null)
+            Habilidades = prestador.Habilidades.Select(p => new HabilidadeDto(p)).ToList();
+        if(prestador.Fotos is not null)
+            FotosServico = [.. prestador.Fotos];
+        if (prestador.Avaliacoes is not null)
             Avaliacoes = prestador.Avaliacoes.Select(p => new AvaliacaoDto(p)).ToList();
     }
 }

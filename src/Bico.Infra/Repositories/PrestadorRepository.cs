@@ -20,11 +20,12 @@ public class PrestadorRepository : IPrestadorRepository
 
     public async Task<List<Prestador>> ObterPrestadoresMaisProximosAsync(int clienteId, int habilidadeId, Paginacao paginacao)
     {
-        var localizacaoDoCliente = await _context.Clientes
+        var localizacaoDoCliente = await _context.Clientes.AsNoTracking()
                              .Where(c => c.Id == clienteId)
                              .Select(c => c.Localizacao)
                              .FirstOrDefaultAsync();
-        var prestadoresProximos = _context.Prestadores
+
+        var prestadoresProximos = await _context.Prestadores.AsNoTracking()
             .Where(p => p.Habilidades.Any(h => h.Id == habilidadeId))
             .Where(p => p.Localizacao.StDWithin(localizacaoDoCliente, p.RaioDeAlcance, true))
             .OrderBy(p => p.Localizacao.StDistance(localizacaoDoCliente, true))
@@ -38,14 +39,14 @@ public class PrestadorRepository : IPrestadorRepository
             })
             .Skip(paginacao.ObterSkip())
             .Take(paginacao.QuantidadeDeItens)
-            .ToList();
+            .ToListAsync();
 
         return prestadoresProximos;
     }
     public async Task<List<Prestador>> ObterPrestador(int prestadorId)
     {
 
-        var prestador = _context.Prestadores
+        var prestador = await _context.Prestadores
                 .Where(p => p.Id == prestadorId)
                 .Select(p => new Prestador
                 {
@@ -59,7 +60,8 @@ public class PrestadorRepository : IPrestadorRepository
                     RaioDeAlcance = p.RaioDeAlcance,
                     Sobre = p.Sobre
                 })
-                .ToList();
+                .ToListAsync();
+
         foreach (var avaliacao in prestador.LastOrDefault().Avaliacoes)
         {
             avaliacao.Cliente = await _context.Clientes
@@ -69,3 +71,7 @@ public class PrestadorRepository : IPrestadorRepository
         return prestador;
     }
 }
+
+
+
+

@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Messaging.ServiceBus;
+using Azure.Storage.Blobs;
 using Bico.Domain.Interfaces;
 using Bico.Domain.Services;
 using Bico.Infra.DBContext;
@@ -14,6 +15,9 @@ public static class InjectionService
     {
         //Services
         services.AddScoped<IPrestadorService, PrestadorService>();
+        services.AddScoped<IAuthenticateService,AuthenticateService>();
+        services.AddScoped<IChatService, ChatService>();
+        services.AddScoped<IAcordoService, AcordoService>();
 
         //Repositories
         services.AddScoped<ICategoriaRepository, CategoriaRepository>();
@@ -21,6 +25,9 @@ public static class InjectionService
         services.AddScoped<IHabilidadeRepository, HabilidadeRepository>();
         services.AddScoped<IPrestadorRepository, PrestadorRepository>();
 
+        services.AddScoped<IChatRepository, ChatRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IAcordoRepository, AcordoRepository>();
 
         return services;
     }
@@ -45,6 +52,17 @@ public static class InjectionService
         services.AddScoped(_ => {
             var blobServiceClient = new BlobServiceClient(connectionString);
             return blobServiceClient;
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddServiceBusClient(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration["ServiceBusConnectionString"];
+        services.AddScoped(_ => {
+            var serviceBusClient = new ServiceBusClient(connectionString);
+            return serviceBusClient;
         });
 
         return services;

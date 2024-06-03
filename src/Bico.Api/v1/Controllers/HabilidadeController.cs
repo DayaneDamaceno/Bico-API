@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Bico.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bico.Api.v1.Controllers;
@@ -7,6 +8,7 @@ namespace Bico.Api.v1.Controllers;
 [ApiVersion(1.0)]
 [ApiController]
 [Route("v{version:apiVersion}/habilidades")]
+//[Authorize]
 public class HabilidadeController : ControllerBase
 {
     private readonly IHabilidadeRepository _habilidadeRepository;

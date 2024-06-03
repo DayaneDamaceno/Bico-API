@@ -39,7 +39,7 @@ public class PrestadorServiceTests
     {
         //arrange
         await CriarCenarioComDoisPrestadoresEUmCliente();
-        _mockAvatarRepository.Setup(repo => repo.GerarAvatarUrlSegura(It.IsAny<string>()))
+        _mockAvatarRepository.Setup(repo => repo.GerarAvatarUrlSegura(It.IsAny<string>(), It.IsAny<string>()))
                              .Returns((string filename) => $"http://test.com/{filename}");
 
 

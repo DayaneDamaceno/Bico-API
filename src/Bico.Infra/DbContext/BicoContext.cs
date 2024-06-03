@@ -7,7 +7,6 @@ namespace Bico.Infra.DBContext;
 
 public partial class BicoContext : DbContext
 {
-    public BicoContext() { }
 
     public BicoContext(DbContextOptions<BicoContext> options) : base(options) { }
 
@@ -19,6 +18,8 @@ public partial class BicoContext : DbContext
     public virtual DbSet<Avaliacao> Avaliacoes { get; set; } = null!;
     public virtual DbSet<FotoServico> Fotos { get; set; } = null!;
 
+    public virtual DbSet<Mensagem> Mensagens { get; set; } = null!;
+    public virtual DbSet<Acordo> Acordos { get; set; } = null!;
 
 
 
@@ -31,13 +32,8 @@ public partial class BicoContext : DbContext
         PostGeoExtensions.AddStDWithin(modelBuilder);
         PostGeoExtensions.AddStDistance(modelBuilder);
 
-        CategoriaMapping.Configure(modelBuilder);
-        HabilidadeMapping.Configure(modelBuilder);
-        UsuarioMapping.Configure(modelBuilder);
-        PrestadorMapping.Configure(modelBuilder);
-        ClienteMapping.Configure(modelBuilder);
-        AvaliacaoMapping.Configure(modelBuilder);
-        FotoServicoMapping.Configure(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BicoContext).Assembly);
 
         OnModelCreatingPartial(modelBuilder);
     }

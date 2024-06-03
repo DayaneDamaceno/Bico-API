@@ -1,37 +1,34 @@
 ﻿using Bico.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bico.Infra.Mapping;
 
-internal static class FotoServicoMapping
+internal  class FotoServicoMapping : IEntityTypeConfiguration<FotoServico>
 {
-
-    public static void Configure(ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<FotoServico> builder)
     {
-        modelBuilder.Entity<FotoServico>(entity =>
-        {
-            entity.ToTable("foto_servico");
+        builder.ToTable("foto_servico");
 
-            entity.Property(p => p.Id)
-                  .HasColumnName("id");
+        builder.Property(p => p.Id)
+              .HasColumnName("id");
 
-            entity.HasKey(p => p.Id);
+        builder.HasKey(p => p.Id);
 
-            entity
-                .Property(p => p.Foto)
-                .HasColumnName("foto")
-                .IsRequired()
-                .HasMaxLength(255);
-            entity
-              .Property(p => p.PrestadorId)
-              .HasColumnName("prestador_id")
-              .IsRequired();
+        builder
+            .Property(p => p.Foto)
+            .HasColumnName("foto")
+            .IsRequired()
+            .HasMaxLength(255);
 
-            entity.HasOne(p => p.Prestador)
-                .WithMany(p => p.Fotos)
-                .HasForeignKey(p => p.PrestadorId);
-          
-        });
+        builder
+          .Property(p => p.PrestadorId)
+          .HasColumnName("prestador_id")
+          .IsRequired();
+
+        builder.HasOne(p => p.Prestador)
+            .WithMany(p => p.Fotos)
+            .HasForeignKey(p => p.PrestadorId);
     }
 }
 

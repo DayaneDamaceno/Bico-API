@@ -18,12 +18,12 @@ public class HabilidadeRepository : IHabilidadeRepository
 
     public async Task<List<Habilidade>> ObterHabilidadesBusca(string textoPesquisa)
     {
-        return await _context.Habilidades.Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
+        return await _context.Habilidades.AsNoTracking().Where(x => x.Nome.Contains(textoPesquisa)).ToListAsync();
     }
 
     public async Task<List<Habilidade>> ListarHabilidades(int categoriaId)
     {
-        var habilidades = await _context.Habilidades
+        var habilidades = await _context.Habilidades.AsNoTracking()
             .Include(h => h.Categoria).Where(x => x.CategoriaId == categoriaId)
             .ToListAsync();
 

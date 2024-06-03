@@ -19,7 +19,10 @@ public class AvaliacaoDto
         Id = avaliacao.Id;
         Conteudo = avaliacao.Conteudo;
         QuantidadeEstrelas = avaliacao.QuantidadeEstrelas;
-        AvatarUrl = avaliacao.Cliente.AvatarUrl;
-        ClienteNome = avaliacao.Cliente.Nome;
+        if(avaliacao.Cliente is not null)
+        {
+            AvatarUrl = avaliacao.Cliente.AvatarUrl;
+            ClienteNome = avaliacao.Cliente.Nome;
+        }
     }
 }
