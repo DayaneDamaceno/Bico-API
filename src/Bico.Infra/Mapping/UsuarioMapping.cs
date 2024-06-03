@@ -32,6 +32,11 @@ internal class UsuarioMapping : IEntityTypeConfiguration<Usuario>
                 .HasColumnName("senha")
                 .IsRequired()
                 .HasMaxLength(1000);
+        builder
+          .Property(p => p.Cpf)
+          .HasColumnName("cpf")
+          .IsRequired()
+          .HasMaxLength(100);
 
         builder
             .Property(p => p.AvatarFileName)

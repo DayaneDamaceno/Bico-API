@@ -45,7 +45,6 @@ public class PrestadorRepository : IPrestadorRepository
     }
     public async Task<List<Prestador>> ObterPrestador(int prestadorId)
     {
-
         var prestador = await _context.Prestadores
                 .Where(p => p.Id == prestadorId)
                 .Select(p => new Prestador

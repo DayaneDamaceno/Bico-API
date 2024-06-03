@@ -28,6 +28,7 @@ public static class InjectionService
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IAcordoRepository, AcordoRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
         return services;
     }

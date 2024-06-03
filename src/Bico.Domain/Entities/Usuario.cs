@@ -11,6 +11,7 @@ public class Usuario
     public string Senha { get; set; }
     public string AvatarFileName { get; set; }
     public Point Localizacao { get; set; }
+    public string Cpf { get; set; }
 
     [NotMapped]
     public string AvatarUrl { get; set; }
